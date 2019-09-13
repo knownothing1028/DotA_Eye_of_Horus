@@ -47,7 +47,6 @@ def get_players_info_match_id(match_id):
     match = Match(match_id)
     return match.players
 
-
 # error need to be modify
 def get_player_info_match_id(player_id, match_id):
     '''
@@ -81,7 +80,7 @@ def get_player_info_recent_matches(player_id):
     return player_info_recent_matches
 
 
-def get_xp_info_player_match(player_id,match_id):
+def get_xp_info_player_match(player_id,match_id, prt=False):
     """
     get the experience information of one player in one match
     '0':Unspecified; '1':HeroKill; '2':CreepKill; '3': RoshanKill
@@ -90,34 +89,28 @@ def get_xp_info_player_match(player_id,match_id):
     :return:
     """
     info_player = get_player_info_match_id(player_id,match_id)
-    return info_player['xp_reasons']
+    xp_info =info_player['xp_reasons']
+    if prt == True:
+        for i in info_player.keys():
+            if i == '0':
+                print('Unspecified:', xp_info[i])
+            if i == '1':
+                print('HeroKill:', xp_info[i])
+            if i == '2':
+                print('CreepKill:', xp_info[i])
+            if i == '3':
+                print('RoshanKill:', xp_info[i])
+    return xp_info
 
-def get_totoal_xp(player_id,match_id):
+def get_totoal_xp(player_id,match_id,prt=False):
     player = Player(player_id)
     info_player = get_player_info_match_id(player_id,match_id)
+    if prt == True:
+        print("Total XP:",info_player['total_xp'])
     return info_player['total_xp']
 
-def display_xp_info_player_match(player_id,match_id):
-    """
-    display xp information of ONE player in ONE match
-    :param player_id:
-    :param match_id:
-    :return:
-    """
-    print("xp reasons for player",get_personaname(player_id),"in match:",match_id)
-    xp_info = get_xp_info_player_match(player_id,match_id)
-    for i in xp_info.keys():
-        if i =='0':
-            print('Unspecified:',xp_info[i])
-        if i == '1':
-            print('HeroKill:', xp_info[i])
-        if i =='2':
-            print('CreepKill:',xp_info[i])
-        if i =='3':
-            print('RoshanKill:',xp_info[i])
 
-
-def get_xp_info_player_recent_matches(player_id):
+def get_xp_info_player_recent_matches(player_id,prt=False):
     """
     get the xp information of ONE player for recent matches
     '0':Unspecified; '1':HeroKill; '2':CreepKill; '3': RoshanKill
@@ -127,23 +120,17 @@ def get_xp_info_player_recent_matches(player_id):
     xp_info_recent_matches =[]
     matches_recent_id = get_recent_matches_id(player_id)
     for m_id in matches_recent_id:
-        xp_info_recent_matches.append(get_xp_info_player_match(player_id,m_id))
+        xp_info_recent_matches.append(get_xp_info_player_match(player_id,m_id,prt))
     return  xp_info_recent_matches
 
-def display_xp_info_player_recent_matches(player_id):
-    """
-    display xp information of recent matches
-    :param player_id:
-    :return:
-    """
-    for m_id in get_recent_matches_id(player_id):
-        display_xp_info_player_match(player_id,m_id)
 
-
-def get_totoal_gold(player_id,match_id):
+def get_totoal_gold(player_id,match_id,prt=False):
     player = Player(player_id)
     info_player = get_player_info_match_id(player_id,match_id)
+    if prt==True:
+        print("Total Gold:",info_player['total_gold'])
     return info_player['total_gold']
+
 # '''Match_id = 5018080036
 # Player_id = 143593296
 #
@@ -220,8 +207,14 @@ if __name__ == '__main__':
     if cmd.lower() == 'xp':
         if len(sys.argv)==3:
             player_id = int(sys.argv[2])
-            display_xp_info_player_recent_matches(player_id)
+            prt = False
+            get_xp_info_player_recent_matches(player_id,prt)
         if len(sys.argv)==4:
             player_id = int(sys.argv[2])
-            match_id = int(sys.argv[3])
-            display_xp_info_player_match(player_id,match_id)
+            if(sys.argv[3] and sys.argv[3]=='True'):
+                prt = True
+                get_xp_info_player_recent_matches(player_id,prt)
+            else:
+                match_id = int(sys.argv[3])
+                get_xp_info_player_match(player_id,match_id)
+
