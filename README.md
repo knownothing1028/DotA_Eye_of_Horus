@@ -17,10 +17,17 @@ How to use this script
 ### `test_command.py`
 
 ```sh
-python test_command.py 143593296
+python test_command.py mmr 143593296
 ```
 
 It will return MMR of this ID
+
+```sh
+python test_command.py farm 143593296
+```
+
+It will return farming ability of this ID
+It will return total property of each recent match and average property of recent matches
 
 License
 ----
