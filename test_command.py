@@ -78,12 +78,6 @@ for info in info_recent_matches_player:
 
 print(count)'''
 
-
-
-
-
-
-
 # m = Match(5018080036)
 # for i in m.players:
     # print(i)
@@ -107,52 +101,34 @@ for mtch_id in match_recent:
     play_info = mtch.players
     '''
 
-
-
-# chaxun(111064717)
-# # chaxun(126049611)
-# chaxun(143593296)
-# chaxun(185399450)
-# chaxun(157092389)
-# chaxun(139988781)
-# chaxun(321174338)
-# chaxun(409839802)
-# chaxun(174576660)
-# chaxun(143598085)
-# chaxun(138437769)
 # p = Player(143593296)
 # print(p.recent_matches[0])
 # print(p.rankings)
 
 if __name__ == '__main__':
-	Player_id = int(sys.argv[1])
-	chaxun(Player_id)
-
-	matches_recent_id = find_recent_match(Player_id)
-	print(matches_recent_id[0])
-	info_recent_matches_player = get_info_recent_matches_player(Player_id)
-	
-	# print(info_recent_matches_player)
-
-	count =0
-	for info in info_recent_matches_player:
-	    # print('info',info)
-	    # print('info_gold_reasons',info['gold_reasons'])
-	    # print('type of info gold',type(info['gold_reasons']))
-	    total_gold = 0
-	    if info['gold_reasons'] is None:
-	        continue
-	    else:
-	        keys = info['gold_reasons'].keys()
-	        # print(info['gold_reasons'])
-	        '''if '0' in keys:
-	            print(info['gold_reasons']['0'])
-	            count +=info['gold_reasons']['0']
-	        else:
-	            print('No 9')'''
-	        for key in keys:
-	        	total_gold += info['gold_reasons'][key]
-	        print('total_gold:')
-	        print(total_gold)
-
-	# print(count)
+	cmd = sys.argv[1]
+	if cmd.lower() == 'mmr':
+		Player_id = int(sys.argv[2])
+		chaxun(Player_id)
+    
+	if cmd.lower() == 'farm':
+		Player_id = int(sys.argv[2])
+		matches_recent_id = find_recent_match(Player_id)
+		info_recent_matches_player = get_info_recent_matches_player(Player_id)
+		sum_of_ten_matches = 0
+		count = 0
+		for info in info_recent_matches_player:
+			total_prop = 0
+			if info['gold_reasons'] is None:
+				continue
+			else:
+				keys = info['gold_reasons'].keys()
+				for key in keys:
+					total_prop += info['gold_reasons'][key]
+				print('Match ID: ' + str(info['match_id']))
+				print('total_property: ' + str(total_prop))
+				print(' ')
+				sum_of_ten_matches += total_prop
+				count += 1
+		ave_of_ten_matches = sum_of_ten_matches / count
+		print('Average property of past 10 matches: ' + str(int(ave_of_ten_matches)))
