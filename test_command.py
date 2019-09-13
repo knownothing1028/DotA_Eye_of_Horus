@@ -53,7 +53,7 @@ def get_info_recent_matches_player(player_id):
         mtchs_info_player.append(mtch_info_player)
     return mtchs_info_player
 
-Match_id = 5018080036
+'''Match_id = 5018080036
 Player_id = 143593296
 
 matches_recent_id = find_recent_match(Player_id)
@@ -68,15 +68,16 @@ for info in info_recent_matches_player:
     # print('type of info gold',type(info['gold_reasons']))
     if info['gold_reasons'] is None:
         continue
-    else:)
-        keys = info['gold_reasons'].keys(
+    else:
+        keys = info['gold_reasons'].keys()
         if '0' in keys:
             print(info['gold_reasons']['0'])
             count +=info['gold_reasons']['0']
         else:
             print('No 9')
 
-print(count)
+print(count)'''
+
 
 
 
@@ -85,7 +86,11 @@ print(count)
 
 # m = Match(5018080036)
 # for i in m.players:
-#     print(i)
+    # print(i)
+    # print('\n')
+    # print(i['account_id'])
+    # chaxun(i['account_id'])
+    # print('\n')
 # p = m.players
 # p0 = p[0]
 # print(p0['account_id'])
@@ -105,8 +110,8 @@ for mtch_id in match_recent:
 
 
 # chaxun(111064717)
-# chaxun(126049611)
-chaxun(143593296)
+# # chaxun(126049611)
+# chaxun(143593296)
 # chaxun(185399450)
 # chaxun(157092389)
 # chaxun(139988781)
@@ -119,3 +124,35 @@ chaxun(143593296)
 # print(p.recent_matches[0])
 # print(p.rankings)
 
+if __name__ == '__main__':
+	Player_id = int(sys.argv[1])
+	chaxun(Player_id)
+
+	matches_recent_id = find_recent_match(Player_id)
+	print(matches_recent_id[0])
+	info_recent_matches_player = get_info_recent_matches_player(Player_id)
+	
+	# print(info_recent_matches_player)
+
+	count =0
+	for info in info_recent_matches_player:
+	    # print('info',info)
+	    # print('info_gold_reasons',info['gold_reasons'])
+	    # print('type of info gold',type(info['gold_reasons']))
+	    total_gold = 0
+	    if info['gold_reasons'] is None:
+	        continue
+	    else:
+	        keys = info['gold_reasons'].keys()
+	        # print(info['gold_reasons'])
+	        '''if '0' in keys:
+	            print(info['gold_reasons']['0'])
+	            count +=info['gold_reasons']['0']
+	        else:
+	            print('No 9')'''
+	        for key in keys:
+	        	total_gold += info['gold_reasons'][key]
+	        print('total_gold:')
+	        print(total_gold)
+
+	# print(count)
