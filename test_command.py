@@ -272,6 +272,11 @@ if __name__ == '__main__':
     if cmd.lower() == 'mmr':
         player_id = int(sys.argv[2])
         query_mmr(player_id)
+    if cmd.lower() =="mmrall":
+        query_mmr(143593296)
+        query_mmr(157092389)
+        query_mmr(185399450)
+        query_mmr(126049611)
 
     # get information about experience
     if cmd.lower() == 'xp':
